@@ -1,0 +1,28 @@
+# Dockerfile para desenvolvimento - Instalação manual do JDK
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instalar dependências básicas e JDK via apt
+RUN apt-get update && \
+    apt-get install -y \
+    openjdk-21-jdk \
+    maven \
+    wget \
+    curl \
+    git \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Definir diretório de trabalho
+WORKDIR /app
+
+# Expor portas comuns para Spring Boot
+EXPOSE 8080 8081 8082 8083 8084 8085 8086 8087 8088 8089
+
+# Manter o container rodando
+CMD ["tail", "-f", "/dev/null"]

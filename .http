@@ -1,0 +1,7 @@
+
+## Create Produto A
+###
+POST http://localhost:8084/produtos
+Content-Type: application/json
+
+{"nome":"Produto b","descricao":"Descrição do Produto b","preco":100.0}

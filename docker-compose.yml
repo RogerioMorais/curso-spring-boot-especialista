@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # Container de desenvolvimento para arquiteturaspring
+  arquiteturaspring:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: arquiteturaspring-dev
+    volumes:
+      - ./arquiteturaspring:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8080:8080"
+    command: tail -f /dev/null
+
+  # Container de desenvolvimento para libraryapi
+  libraryapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: libraryapi-dev
+    volumes:
+      - ./libraryapi:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8081:8080"
+    command: tail -f /dev/null
+
+  # Container de desenvolvimento para localizacao
+  localizacao:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: localizacao-dev
+    volumes:
+      - ./localizacao:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8082:8080"
+    command: tail -f /dev/null
+
+  # Container de desenvolvimento para pedidos-api
+  pedidos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: pedidos-api-dev
+    volumes:
+      - ./pedidos-api:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8083:8080"
+    command: tail -f /dev/null
+
+  # Container de desenvolvimento para produtosapi
+  produtosapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: produtosapi-dev
+    volumes:
+      - ./produtosapi:/app
+      - ./start-app.sh:/start-app.sh
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8084:8080"
+    command: bash /start-app.sh
+
+  # Container de desenvolvimento para resource-server
+  resource-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: resource-server-dev
+    volumes:
+      - ./resource-server:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8085:8080"
+    command: tail -f /dev/null
+
+  # Container de desenvolvimento para sbootexp-security
+  sbootexp-security:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: sbootexp-security-dev
+    volumes:
+      - ./sbootexp-security:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    networks:
+      - spring-network
+    ports:
+      - "8086:8080"
+    command: tail -f /dev/null
+
+networks:
+  spring-network:
+    driver: bridge
+
+volumes:
+  maven-repo:
